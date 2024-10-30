@@ -2,11 +2,14 @@ package practica1_ssii;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class PanelConCasillas extends JPanel {
     private int numCasillas;
     private int numCola;
     private casilla[] cajas;
+    String selectedDirectory = System.getProperty("user.dir");
+    File actualDir = new File(selectedDirectory);
 
     public PanelConCasillas(int num, int personas) {
         this.cajas = new casilla[num];
@@ -26,7 +29,8 @@ public class PanelConCasillas extends JPanel {
 
         for (int i = 0; i < this.numCasillas; i++) {
             casilla caja = new casilla(
-                    "C:\\\\Users\\\\aaron\\\\OneDrive - Universitat de les Illes Balears\\\\Documents\\\\NetBeansProjects\\\\Practica1_SSII\\\\src\\\\practica1_ssii\\\\images\\\\ascensor_cerrado.jpg",
+                    actualDir.getAbsolutePath()
+                            + "\\\\Practica1_SSII _VM\\\\src\\\\practica1_ssii\\\\images\\\\ascensor_cerrado.jpg",
                     false);
             caja.setPreferredSize(new Dimension(alturaCaja, alturaCaja)); // Tamaño proporcional
             caja.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Borde para visualizar la caja
@@ -76,5 +80,22 @@ public class PanelConCasillas extends JPanel {
         cajas[num].PisoDislocated();
         cajas[num].revalidate();
         cajas[num].repaint();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setColor(new Color(192, 192, 192));
+        g2d.fillRect(0, 0, getWidth(), getHeight()); // Dibujar un rectángulo en todo el panel
+        g2d.drawImage(
+                new ImageIcon(
+                        actualDir.getAbsolutePath()
+                                + "\\\\Practica1_SSII _VM\\\\src\\\\practica1_ssii\\\\images\\\\edificio.png")
+                        .getImage(),
+                0, 0, getWidth(), getHeight(), this);
+
+        g2d.dispose();
+
     }
 }

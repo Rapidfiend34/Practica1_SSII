@@ -100,11 +100,13 @@ public class PanelContenido extends JPanel {
         // Actualizamos posicion ascensor en panel
         panelDestino.ActualizarDestino(num);
     }
-    public void ActualizarContadorPersonas(int num){
-        this.GenteInside.setText("Gente adentro "+Integer.toString(num));
+
+    public void ActualizarContadorPersonas(int num) {
+        this.GenteInside.setText("Gente adentro " + Integer.toString(num));
         this.GenteInside.revalidate();
         this.GenteInside.repaint();
     }
+
     public void CambiarPos(int num, int y) {
         casillas.DesmarcarCasilla(y);
         casillas.MarcarCasilla(num);

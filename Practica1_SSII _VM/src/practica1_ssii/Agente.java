@@ -28,27 +28,7 @@ public class Agente {
 
     public void AbrirPuerta() {
         if ((!this.d) && ((this.b[a] != 0) || (this.c[a] != 0))) { // Proposiciones de obertura de puerta
-            this.personasT = this.personasT - this.b[a] + this.c[a];
-            this.op.ActualizarContadorPersonas(personasT);
             this.op.AbrirAscensor(this.Pisos - a - 1);
-            while (this.b[a] != 0) { // Mientras haya gente que quiera salir del ascensor en el piso actual vamos
-                                     // sacando a personas
-                this.op.AñadirPersonaSalida(this.Pisos - a - 1);
-                this.b[a]--;
-                // Generamos un hilo para eliminar a la persona de la salida después de un
-                // cierto tiempo
-                Thread cleanerThread = new Thread(() -> this.op.EliminarPersonaSalida(this.Pisos - a - 1));
-                cleanerThread.start();
-            }
-            System.out.println("Hemos salido del ascensor");
-            while (this.c[a] != 0) { // Mientras haya gente que quiera entrar quitamos persona de espera y generamos
-                                     // petición
-                this.op.EliminarPersona(this.Pisos - a - 1);
-                System.out.println("He entrado al ascensor en el piso" + a);
-                generarEntrada();
-                this.c[a]--;
-            }
-
             this.d = true; // Puerta abierta
             try {
                 Thread.sleep(1000);
@@ -103,7 +83,7 @@ public class Agente {
                     generarEntrada();
                     this.c[a]--;
                 }
-                
+
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
@@ -132,7 +112,7 @@ public class Agente {
             System.out.println("Subimos");
             this.op.CambioSentido(true); // Cambiamos el sentido siempre que se realice la accion
             this.op.ActualizarPosicion(this.Pisos - a - 1, this.Pisos - y - 1);
-            this.state=true;
+            this.state = true;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -140,9 +120,9 @@ public class Agente {
                 e.printStackTrace();
             }
             return true;
-        } 
+        }
         return false;
-        
+
     }
 
     public boolean SubirPiso2I() {
@@ -162,7 +142,7 @@ public class Agente {
             int y = a;
             a++;
             System.out.println("Subimos");
-            this.state=true;
+            this.state = true;
             this.op.CambioSentido(true); // Cambiamos el sentido siempre que se realice la accion
             this.op.ActualizarPosicion(this.Pisos - a - 1, this.Pisos - y - 1);
             try {
@@ -172,9 +152,9 @@ public class Agente {
                 e.printStackTrace();
             }
             return true;
-        } 
+        }
         return false;
-        
+
     }
 
     public boolean BajarPiso() {
@@ -197,7 +177,7 @@ public class Agente {
 
             this.op.CambioSentido(false); // Cambiamos el sentido siempre que se realice la accion
             this.op.ActualizarPosicion(this.Pisos - a - 1, this.Pisos - y - 1);
-            this.state=false;
+            this.state = false;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -207,7 +187,7 @@ public class Agente {
             return true;
         }
         return false;
-        
+
     }
 
     public boolean BajarPiso2I() {
@@ -230,7 +210,7 @@ public class Agente {
 
             this.op.CambioSentido(false); // Cambiamos el sentido siempre que se realice la accion
             this.op.ActualizarPosicion(this.Pisos - a - 1, this.Pisos - y - 1);
-            this.state=false;
+            this.state = false;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -238,9 +218,9 @@ public class Agente {
                 e.printStackTrace();
             }
             return true;
-        } 
+        }
         return false;
-        
+
     }
 
     private int Prec(int[] array) {

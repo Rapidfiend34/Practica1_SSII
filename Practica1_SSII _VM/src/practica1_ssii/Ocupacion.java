@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -15,6 +16,8 @@ public class Ocupacion extends JPanel {
     private boolean tipo; // True=panel de sentido, False=panel de destino
     private String num;
     private boolean orientacion; // True=subida, False=bajada
+    String selectedDirectory = System.getProperty("user.dir");
+    File actualDir = new File(selectedDirectory);
 
     public Ocupacion(boolean or) {
         this.orientacion = true;
@@ -25,13 +28,14 @@ public class Ocupacion extends JPanel {
         this.setPreferredSize(new Dimension(50, 50));
 
         ImageIcon imagenIcono = new ImageIcon(
-                "C:\\Users\\aaron\\OneDrive - Universitat de les Illes Balears\\Documents\\NetBeansProjects\\Practica1_SSII\\src\\practica1_ssii\\images\\bombilla.png"); // Cambia
-                                                                                                                                                                          // por
-                                                                                                                                                                          // la
-                                                                                                                                                                          // ruta
-                                                                                                                                                                          // de
-                                                                                                                                                                          // tu
-                                                                                                                                                                          // imagen
+                actualDir.getAbsolutePath()
+                        + "\\\\Practica1_SSII _VM\\\\src\\\\practica1_ssii\\\\images\\\\bombilla.png"); // Cambia
+                                                                                                        // por
+                                                                                                        // la
+                                                                                                        // ruta
+                                                                                                        // de
+                                                                                                        // tu
+                                                                                                        // imagen
         imagenEscalada = imagenIcono.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Redimensionar
 
     }
@@ -53,11 +57,13 @@ public class Ocupacion extends JPanel {
             // Panel que indica el sentido con el que se desplaza el ascensor
             if (this.orientacion) {
                 g.drawImage(new ImageIcon(
-                        "C:\\Users\\aaron\\OneDrive - Universitat de les Illes Balears\\Documents\\NetBeansProjects\\Practica1_SSII\\src\\practica1_ssii\\images\\flecha_arriba.png")
+                        actualDir.getAbsolutePath()
+                                + "\\\\Practica1_SSII _VM\\\\src\\\\practica1_ssii\\\\images\\\\flecha_arriba.png")
                         .getImage(), 0, 5, getWidth(), getHeight() - 10, this);
             } else {
                 g.drawImage(new ImageIcon(
-                        "C:\\Users\\aaron\\OneDrive - Universitat de les Illes Balears\\Documents\\NetBeansProjects\\Practica1_SSII\\src\\practica1_ssii\\images\\flecha_abajo.png")
+                        actualDir.getAbsolutePath()
+                                + "\\\\Practica1_SSII _VM\\\\src\\\\practica1_ssii\\\\images\\\\flecha_abajo.png")
                         .getImage(), 0, 0, getWidth(), getHeight(), this);
 
             }

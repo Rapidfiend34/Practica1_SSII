@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class InterfazAscensor extends JFrame {
     private int numPisos = 5;
@@ -16,10 +17,11 @@ public class InterfazAscensor extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600); // Tamaño de la ventana
         this.setLayout(new BorderLayout());
-
+        String selectedDirectory = System.getProperty("user.dir");
+        File actualDir = new File(selectedDirectory);
         // Crear el panel izquierdo (ocupará el 75% del espacio)
-        panelIzquierdo = new PanelContenido(
-                "C:\\Users\\aaron\\OneDrive - Universitat de les Illes Balears\\Documents\\NetBeansProjects\\Practica1_SSII\\src\\practica1_ssii\\images\\fondo_ciudad.png",
+        panelIzquierdo = new PanelContenido(actualDir.getAbsolutePath()
+                + "\\Practica1_SSII _VM\\src\\practica1_ssii\\images\\fondo_ciudad.png",
                 this.numPisos, this.numPersonas);
         panelIzquierdo.setBackground(Color.LIGHT_GRAY); // Solo para hacer visible el panel
         panelIzquierdo.setPreferredSize(new Dimension(600, 600)); // Define un tamaño inicial
@@ -29,15 +31,16 @@ public class InterfazAscensor extends JFrame {
         panelDerecho.setBackground(Color.DARK_GRAY); // Solo para hacer visible el panel
         panelDerecho.setLayout(new BoxLayout(panelDerecho, BoxLayout.Y_AXIS)); // Disposición vertical de las opciones
         panelDerecho.setPreferredSize(new Dimension(200, 600)); // Tamaño para el panel derecho
-
         ImageIcon imagenIcono = new ImageIcon(
-                "C:\\Users\\aaron\\OneDrive - Universitat de les Illes Balears\\Documents\\NetBeansProjects\\Practica1_SSII\\src\\practica1_ssii\\images\\imagen_logo_ascensor.png"); // Cambia
-                                                                                                                                                                                      // por
-                                                                                                                                                                                      // la
-                                                                                                                                                                                      // ruta
-                                                                                                                                                                                      // de
-                                                                                                                                                                                      // tu
-                                                                                                                                                                                      // imagen
+                actualDir.getAbsolutePath()
+                        + "\\Practica1_SSII _VM\\src\\practica1_ssii\\images\\imagen_logo_ascensor.png"); // Cambia
+        // por
+        // la
+        // ruta
+        // de
+        // tu
+        // imagen
+
         Image imagenEscalada = imagenIcono.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Redimensionar
         ImageIcon imagenRedimensionada = new ImageIcon(imagenEscalada);
 
@@ -77,9 +80,15 @@ public class InterfazAscensor extends JFrame {
                     // Convertir el valor ingresado a un entero
                     if (input != null) {
                         numPisos = Integer.parseInt(input);
-                        JOptionPane.showMessageDialog(null, "Número guardado: " + numPisos);
-                        InterfazAscensor.this.panelIzquierdo.ChangeDimension(numPisos);
-                        InterfazAscensor.this.op = new Operaciones(numPisos, InterfazAscensor.this);
+                        if (numPisos <= 0) {
+                            JOptionPane.showMessageDialog(null, "Por favor, introduce un número válido.", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        } else {
+
+                            JOptionPane.showMessageDialog(null, "Número guardado: " + numPisos);
+                            InterfazAscensor.this.panelIzquierdo.ChangeDimension(numPisos);
+                            InterfazAscensor.this.op = new Operaciones(numPisos, InterfazAscensor.this);
+                        }
 
                     }
                 } catch (NumberFormatException ex) {
@@ -99,8 +108,13 @@ public class InterfazAscensor extends JFrame {
                     // Convertir el valor ingresado a un entero
                     if (input != null) {
                         numPersonas = Integer.parseInt(input);
-                        JOptionPane.showMessageDialog(null, "Número guardado: " + numPersonas);
-                        InterfazAscensor.this.panelIzquierdo.ChangePersonDim(numPersonas);
+                        if (numPersonas <= 0) {
+                            JOptionPane.showMessageDialog(null, "Por favor, introduce un número válido.", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Número guardado: " + numPersonas);
+                            InterfazAscensor.this.panelIzquierdo.ChangePersonDim(numPersonas);
+                        }
                     }
                 } catch (NumberFormatException ex) {
                     // Mostrar un mensaje de error si el valor no es un número válido
@@ -141,9 +155,11 @@ public class InterfazAscensor extends JFrame {
         // Hacer visible la ventana
         this.setVisible(true);
     }
-    public void ActualizarContadorPersonas(int num){
+
+    public void ActualizarContadorPersonas(int num) {
         panelIzquierdo.ActualizarContadorPersonas(num);
     }
+
     public void AbrirAscensor(int pos) {
         panelIzquierdo.AbrirAscensor(pos);
     }

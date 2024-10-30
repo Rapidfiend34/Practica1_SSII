@@ -2,18 +2,22 @@ package practica1_ssii;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class casilla extends JPanel {
     private Image fondo;
     private boolean estancia;
     private boolean persona;
     private Image imagenSobrepuesta;
+    String selectedDirectory = System.getProperty("user.dir");
+    File actualDir = new File(selectedDirectory);
 
     // Clase utilizada para representar las casillas interactivas del edificio
     public casilla(String pathImagen, boolean instancia) {
         this.estancia = instancia;
         this.imagenSobrepuesta = new ImageIcon(
-                "C:\\\\Users\\\\aaron\\\\OneDrive - Universitat de les Illes Balears\\\\Documents\\\\NetBeansProjects\\\\Practica1_SSII\\\\src\\\\practica1_ssii\\\\images\\\\Persona.png")
+                actualDir.getAbsolutePath()
+                        + "\\\\Practica1_SSII _VM\\\\src\\\\practica1_ssii\\\\images\\\\Persona.png")
                 .getImage();
         this.persona = instancia;
         this.fondo = new ImageIcon(pathImagen).getImage();
@@ -32,7 +36,8 @@ public class casilla extends JPanel {
     public void PuertaAbierta() {
         // Actualizamos el sprite de la puerta a abierta
         this.fondo = new ImageIcon(
-                "C:\\Users\\aaron\\OneDrive - Universitat de les Illes Balears\\Documents\\NetBeansProjects\\Practica1_SSII\\src\\practica1_ssii\\images\\ascensor_abierto.jpg")
+                actualDir.getAbsolutePath()
+                        + "\\\\Practica1_SSII _VM\\\\src\\\\practica1_ssii\\\\images\\\\ascensor_abierto.jpg")
                 .getImage();
         this.repaint();
     }
@@ -40,7 +45,8 @@ public class casilla extends JPanel {
     public void PuertaCerrada() {
         // Actualizamos el sprite de la puerta a cerrada
         this.fondo = new ImageIcon(
-                "C:\\\\Users\\\\aaron\\\\OneDrive - Universitat de les Illes Balears\\\\Documents\\\\NetBeansProjects\\\\Practica1_SSII\\\\src\\\\practica1_ssii\\\\images\\\\ascensor_cerrado.jpg")
+                actualDir.getAbsolutePath()
+                        + "\\\\Practica1_SSII _VM\\\\src\\\\practica1_ssii\\\\images\\\\ascensor_cerrado.jpg")
                 .getImage();
         this.repaint();
     }
